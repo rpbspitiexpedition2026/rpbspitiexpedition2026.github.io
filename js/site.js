@@ -129,6 +129,32 @@
       </div>`).join("");
   }
 
+  /* ---------- dark mode toggle ---------- */
+  function themeToggle() {
+    const btn = document.querySelector('.theme-toggle');
+    const html = document.documentElement;
+
+    function apply(theme, animate) {
+      if (animate) {
+        html.classList.add('theme-fx');
+        setTimeout(() => html.classList.remove('theme-fx'), 280);
+      }
+      html.setAttribute('data-theme', theme);
+      if (btn) btn.textContent = theme === 'dark' ? 'LIGHT' : 'DARK';
+    }
+
+    // Sync button label with the theme that was set by the FOUC-prevention script
+    const current = html.getAttribute('data-theme') || 'light';
+    if (btn) btn.textContent = current === 'dark' ? 'LIGHT' : 'DARK';
+
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      apply(next, true);
+      localStorage.setItem('spiti-theme', next);
+    });
+  }
+
   /* ---------- mobile nav ---------- */
   function mobileNav() {
     const burger = document.querySelector('.nav-burger');
@@ -148,7 +174,7 @@
     });
   }
 
-  function run() { heroMap(); countdown(); elevation(); riders(); itinerary(); essentials(); segments(); mobileNav(); }
+  function run() { themeToggle(); heroMap(); countdown(); elevation(); riders(); itinerary(); essentials(); segments(); mobileNav(); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
   else run();
 })();
