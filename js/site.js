@@ -121,7 +121,26 @@
       </div>`).join("");
   }
 
-  function run() { heroMap(); countdown(); elevation(); riders(); itinerary(); essentials(); segments(); }
+  /* ---------- mobile nav ---------- */
+  function mobileNav() {
+    const burger = document.querySelector('.nav-burger');
+    const navEl = document.querySelector('nav');
+    if (!burger || !navEl) return;
+    burger.addEventListener('click', () => {
+      const isOpen = navEl.classList.toggle('nav-open');
+      burger.setAttribute('aria-expanded', String(isOpen));
+      burger.textContent = isOpen ? '×' : '☰';
+    });
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', () => {
+        navEl.classList.remove('nav-open');
+        burger.setAttribute('aria-expanded', 'false');
+        burger.textContent = '☰';
+      });
+    });
+  }
+
+  function run() { heroMap(); countdown(); elevation(); riders(); itinerary(); essentials(); segments(); mobileNav(); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
   else run();
 })();
