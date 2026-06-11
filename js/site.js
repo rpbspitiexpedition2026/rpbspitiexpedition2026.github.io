@@ -90,6 +90,14 @@
         </div>
       </details>`;
     }).join("");
+
+    el("itin").querySelectorAll("details.it-day").forEach(d => {
+      d.addEventListener("toggle", () => {
+        if (d.open) {
+          el("itin").querySelectorAll("details.it-day").forEach(o => { if (o !== d) o.removeAttribute("open"); });
+        }
+      });
+    });
   }
 
   /* ---------- essentials ---------- */
