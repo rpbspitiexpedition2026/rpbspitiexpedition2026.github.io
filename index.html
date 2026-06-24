@@ -13,6 +13,7 @@
 <script>!function(){var t=localStorage.getItem('spiti-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t)}()</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" as="style" />
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="css/site.css" />
 </head>
@@ -101,9 +102,9 @@
         <span class="dl-ic">PDF</span>
         <span><h3>Expedition Manual</h3><p>17 pages — detailed days, fuel strategy, medicine &amp; dosage, luggage matrix, budget.</p></span>
       </a>
-      <a class="dl" href="#" aria-disabled="true">
+      <a class="dl dl-soon" tabindex="-1" aria-disabled="true">
         <span class="dl-ic">TEES</span>
-        <span><h3>Trip T-Shirts</h3><p>14 black &amp; white designs built from the circuit — route lines, contours, badges.</p></span>
+        <span><h3>Trip T-Shirts <span class="soon-badge">SOON</span></h3><p>14 black &amp; white designs built from the circuit — route lines, contours, badges.</p></span>
       </a>
     </div>
   </div>
@@ -120,6 +121,7 @@
   </div>
 </footer>
 
+<button class="scroll-top" aria-label="Back to top">↑</button>
 <script src="js/geo.js"></script>
 <script src="js/itinerary-data.js"></script>
 <script src="js/manual-data.js"></script>

@@ -61,7 +61,7 @@ nav{position:sticky;top:0;z-index:40;background:var(--nav-bg);backdrop-filter:bl
 .brand .r{color:var(--rust);margin-right:8px;}
 .nav-links{display:flex;gap:20px;margin-left:auto;}
 .nav-links a{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:var(--soft);padding:4px 2px;border-bottom:2px solid transparent;}
-.nav-links a:hover{color:var(--ink);border-bottom-color:var(--rust);}
+.nav-links a:hover,.nav-links a.active{color:var(--ink);border-bottom-color:var(--rust);}
 .nav-date{font-family:var(--mono);font-size:10px;letter-spacing:.08em;border:1.5px solid var(--ink);padding:5px 10px;color:var(--ink);white-space:nowrap;}
 
 /* theme toggle — styled like nav-date but interactive */
@@ -196,6 +196,16 @@ section.alt{background:var(--card);border-top:1.5px solid var(--ink);border-bott
 .dl .dl-ic{font-family:var(--mono);font-size:11px;border:1.5px solid var(--rust);color:var(--rust);padding:8px 10px;letter-spacing:.06em;flex-shrink:0;}
 .dl h3{font-family:var(--cond);font-weight:700;font-size:22px;text-transform:uppercase;margin:0;line-height:1;}
 .dl p{font-size:12.5px;color:var(--soft);margin:3px 0 0;}
+
+/* downloads — disabled/soon state */
+.dl-soon{opacity:.5;pointer-events:none;cursor:default;}
+.soon-badge{font-family:var(--mono);font-size:8px;letter-spacing:.12em;text-transform:uppercase;background:var(--rust);color:var(--paper);padding:2px 6px;vertical-align:middle;margin-left:8px;position:relative;top:-1px;}
+
+/* scroll-to-top */
+.scroll-top{position:fixed;bottom:28px;right:28px;width:40px;height:40px;background:var(--ink);color:var(--paper);border:none;font-family:var(--mono);font-size:17px;line-height:1;cursor:pointer;z-index:35;opacity:0;pointer-events:none;transition:opacity .2s,background .15s;}
+.scroll-top.visible{opacity:1;pointer-events:auto;}
+.scroll-top:hover{background:var(--rust);}
+@media(max-width:480px){.scroll-top{bottom:18px;right:14px;}}
 
 /* footer */
 footer{border-top:1.5px solid var(--ink);background:var(--card);}
