@@ -9,6 +9,8 @@
 <meta property="og:description" content="Five riders, five machines, one valley. The r/punebikers self-supported motorcycle expedition to Spiti Valley — 19 Sep to 3 Oct 2026." />
 <meta property="og:type" content="website" />
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M16 2 L30 28 L2 28 Z' fill='%23b85c28'/></svg>" />
+<!-- Prevent flash of wrong theme before CSS loads -->
+<script>!function(){var t=localStorage.getItem('spiti-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t)}()</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -26,6 +28,8 @@
       <a href="#sec-essentials">Essentials</a>
       <a href="#downloads">Downloads</a>
     </div>
+    <button class="theme-toggle" aria-label="Toggle dark mode">DARK</button>
+    <button class="nav-burger" aria-label="Open navigation" aria-expanded="false">&#9776;</button>
     <span class="nav-date">19 SEP — 03 OCT 2026</span>
   </div>
 </nav>

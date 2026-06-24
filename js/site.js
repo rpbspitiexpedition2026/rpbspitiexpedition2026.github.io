@@ -90,6 +90,14 @@
         </div>
       </details>`;
     }).join("");
+
+    el("itin").querySelectorAll("details.it-day").forEach(d => {
+      d.addEventListener("toggle", () => {
+        if (d.open) {
+          el("itin").querySelectorAll("details.it-day").forEach(o => { if (o !== d) o.removeAttribute("open"); });
+        }
+      });
+    });
   }
 
   /* ---------- essentials ---------- */
@@ -121,7 +129,52 @@
       </div>`).join("");
   }
 
-  function run() { heroMap(); countdown(); elevation(); riders(); itinerary(); essentials(); segments(); }
+  /* ---------- dark mode toggle ---------- */
+  function themeToggle() {
+    const btn = document.querySelector('.theme-toggle');
+    const html = document.documentElement;
+
+    function apply(theme, animate) {
+      if (animate) {
+        html.classList.add('theme-fx');
+        setTimeout(() => html.classList.remove('theme-fx'), 280);
+      }
+      html.setAttribute('data-theme', theme);
+      if (btn) btn.textContent = theme === 'dark' ? 'LIGHT' : 'DARK';
+    }
+
+    // Sync button label with the theme that was set by the FOUC-prevention script
+    const current = html.getAttribute('data-theme') || 'light';
+    if (btn) btn.textContent = current === 'dark' ? 'LIGHT' : 'DARK';
+
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      apply(next, true);
+      localStorage.setItem('spiti-theme', next);
+    });
+  }
+
+  /* ---------- mobile nav ---------- */
+  function mobileNav() {
+    const burger = document.querySelector('.nav-burger');
+    const navEl = document.querySelector('nav');
+    if (!burger || !navEl) return;
+    burger.addEventListener('click', () => {
+      const isOpen = navEl.classList.toggle('nav-open');
+      burger.setAttribute('aria-expanded', String(isOpen));
+      burger.textContent = isOpen ? '×' : '☰';
+    });
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', () => {
+        navEl.classList.remove('nav-open');
+        burger.setAttribute('aria-expanded', 'false');
+        burger.textContent = '☰';
+      });
+    });
+  }
+
+  function run() { themeToggle(); heroMap(); countdown(); elevation(); riders(); itinerary(); essentials(); segments(); mobileNav(); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
   else run();
 })();
