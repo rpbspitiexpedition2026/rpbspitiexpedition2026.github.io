@@ -13,6 +13,27 @@
   /* ---------- countdown ---------- */
   function countdown() {
     const t0 = new Date("2026-09-19T06:00:00+05:30").getTime();
+    const t1 = new Date("2026-10-04T00:00:00+05:30").getTime();
+    const now = Date.now();
+    const cdTo = document.querySelector('.cd-to');
+    const cdEl = document.querySelector('.cd');
+
+    if (now >= t1) {
+      ["cdD","cdH","cdM","cdS"].forEach(c => { el(c).textContent = "✓"; });
+      if (cdTo) cdTo.innerHTML = 'expedition<br/>complete';
+      if (cdEl) cdEl.setAttribute('aria-label', 'Expedition complete');
+      return;
+    }
+
+    if (now >= t0) {
+      const dayNum = Math.floor((now - t0) / 864e5) + 1;
+      el("cdD").textContent = String(dayNum).padStart(2, "0");
+      ["cdH","cdM","cdS"].forEach(c => { el(c).textContent = "—"; });
+      if (cdTo) cdTo.innerHTML = `day ${dayNum}<br/>on the road`;
+      if (cdEl) cdEl.setAttribute('aria-label', `Day ${dayNum} of the expedition`);
+      return;
+    }
+
     const cells = ["cdD", "cdH", "cdM", "cdS"];
     function tick() {
       let d = Math.max(0, t0 - Date.now());
@@ -29,14 +50,16 @@
 
   /* ---------- elevation profile ---------- */
   function elevation() {
-    const W = 1080, H = 240, L = 50, R = W - 30, top = 50, base = H - 46;
+    const W = 1080, H = 280, L = 50, R = W - 30, top = 70, base = H - 46;
     const seq = ["Chandigarh","Narkanda","Rampur","Chitkul","Kalpa","Nako","Tabo","Kaza","Komic","Kunzum La","Chandratal","Batal","Manali"];
     const max = 4700, min = 300;
     const pts = seq.map((nm, i) => {
       const wp = S.byName(nm);
       return { x: L + (i / (seq.length - 1)) * (R - L), y: base - ((wp.a - min) / (max - min)) * (base - top), wp };
     });
-    let g = "";
+    // Kunzum La label goes below the line to avoid colliding with adjacent Komic label
+    const labelBelow = new Set(["Kunzum La"]);
+    let g = `<title>Elevation profile · Chandigarh (350 m) to Komic (4,587 m) and down to Manali (2,050 m)</title>`;
     [1000, 2000, 3000, 4000].forEach(a => {
       const y = base - ((a - min) / (max - min)) * (base - top);
       g += `<line x1="${L}" y1="${y}" x2="${R}" y2="${y}" stroke="var(--line)" stroke-width="1"/>`;
@@ -49,10 +72,17 @@
       const hi = ["Chandigarh","Chitkul","Kaza","Komic","Kunzum La","Chandratal","Manali"].includes(p.wp.n);
       g += `<circle cx="${p.x}" cy="${p.y}" r="${hi ? 4 : 2.5}" fill="${hi ? 'var(--rust)' : 'var(--ink)'}"/>`;
       if (hi) {
-        g += `<text x="${p.x}" y="${p.y - 14}" text-anchor="middle" class="svgcond" font-size="15">${p.wp.n.toUpperCase()}</text>`;
-        g += `<text x="${p.x}" y="${p.y - 30}" text-anchor="middle" class="svgmono" font-size="10">${p.wp.a.toLocaleString()}m</text>`;
+        if (labelBelow.has(p.wp.n)) {
+          g += `<line x1="${p.x}" y1="${p.y + 5}" x2="${p.x}" y2="${p.y + 12}" stroke="var(--faint)" stroke-width="1"/>`;
+          g += `<text x="${p.x}" y="${p.y + 25}" text-anchor="middle" class="svgcond" font-size="15">${p.wp.n.toUpperCase()}</text>`;
+          g += `<text x="${p.x}" y="${p.y + 39}" text-anchor="middle" class="svgmono" font-size="10">${p.wp.a.toLocaleString()}m</text>`;
+        } else {
+          g += `<text x="${p.x}" y="${p.y - 14}" text-anchor="middle" class="svgcond" font-size="15">${p.wp.n.toUpperCase()}</text>`;
+          g += `<text x="${p.x}" y="${p.y - 30}" text-anchor="middle" class="svgmono" font-size="10">${p.wp.a.toLocaleString()}m</text>`;
+        }
       }
     });
+    el("elev").setAttribute("viewBox", `0 0 ${W} ${H}`);
     el("elev").innerHTML = g;
   }
 
@@ -129,6 +159,38 @@
       </div>`).join("");
   }
 
+  /* ---------- active nav on scroll ---------- */
+  function activeNav() {
+    const links = document.querySelectorAll('.nav-links a[href^="#"]');
+    if (!links.length) return;
+    const targets = Array.from(links)
+      .map(a => ({ a, el: document.querySelector(a.getAttribute('href')) }))
+      .filter(x => x.el);
+    let raf;
+    function update() {
+      const trigger = window.innerHeight * 0.35;
+      let active = targets[0];
+      for (const t of targets) {
+        if (t.el.getBoundingClientRect().top <= trigger) active = t;
+      }
+      links.forEach(a => a.classList.toggle('active', a === active.a));
+    }
+    window.addEventListener('scroll', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(update); }, { passive: true });
+    update();
+  }
+
+  /* ---------- scroll-to-top ---------- */
+  function scrollTop() {
+    const btn = document.querySelector('.scroll-top');
+    if (!btn) return;
+    let raf;
+    window.addEventListener('scroll', () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => btn.classList.toggle('visible', window.scrollY > 500));
+    }, { passive: true });
+    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  }
+
   /* ---------- dark mode toggle ---------- */
   function themeToggle() {
     const btn = document.querySelector('.theme-toggle');
@@ -172,9 +234,16 @@
         burger.textContent = '☰';
       });
     });
+    document.addEventListener('click', e => {
+      if (navEl.classList.contains('nav-open') && !navEl.contains(e.target)) {
+        navEl.classList.remove('nav-open');
+        burger.setAttribute('aria-expanded', 'false');
+        burger.textContent = '☰';
+      }
+    });
   }
 
-  function run() { themeToggle(); heroMap(); countdown(); elevation(); riders(); itinerary(); essentials(); segments(); mobileNav(); }
+  function run() { themeToggle(); heroMap(); countdown(); elevation(); riders(); itinerary(); essentials(); segments(); mobileNav(); activeNav(); scrollTop(); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
   else run();
 })();
