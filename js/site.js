@@ -184,14 +184,18 @@
     const btn = document.querySelector('.scroll-top');
     const bar = document.querySelector('.st-bar');
     if (!btn) return;
-    const CIRC = 122.52;
+    const circ = bar && bar.getTotalLength ? bar.getTotalLength() : 0;
+    if (bar && circ) {
+      bar.style.strokeDasharray = String(circ);
+      bar.style.strokeDashoffset = String(circ);
+    }
     let raf;
     function update() {
       btn.classList.toggle('visible', window.scrollY > 500);
-      if (bar) {
+      if (bar && circ) {
         const max = document.documentElement.scrollHeight - window.innerHeight;
         const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
-        bar.style.strokeDashoffset = String(CIRC * (1 - p));
+        bar.style.strokeDashoffset = String(circ * (1 - p));
       }
     }
     window.addEventListener('scroll', () => {
