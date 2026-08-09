@@ -179,15 +179,26 @@
     update();
   }
 
-  /* ---------- scroll-to-top ---------- */
+  /* ---------- scroll-to-top (with page-progress ring) ---------- */
   function scrollTop() {
     const btn = document.querySelector('.scroll-top');
+    const bar = document.querySelector('.st-bar');
     if (!btn) return;
+    const CIRC = 122.52;
     let raf;
+    function update() {
+      btn.classList.toggle('visible', window.scrollY > 500);
+      if (bar) {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+        bar.style.strokeDashoffset = String(CIRC * (1 - p));
+      }
+    }
     window.addEventListener('scroll', () => {
       cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => btn.classList.toggle('visible', window.scrollY > 500));
+      raf = requestAnimationFrame(update);
     }, { passive: true });
+    update();
     btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   }
 
