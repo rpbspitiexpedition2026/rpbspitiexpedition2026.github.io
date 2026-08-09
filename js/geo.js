@@ -1,9 +1,7 @@
 /* ============================================================
-   SPITI 2026 — shared geo + topo engine
-   Geographic waypoints (approx, faithful to the real circuit),
-   a projector that fits them to any viewBox, route-path builder,
-   and procedural topographic-contour generators.
-   Exposes window.SPITI
+   SPITI 2026 — shared geo + circuit-map engine
+   Geographic waypoints (for the elevation profile) and the
+   stylized circuit map renderer. Exposes window.SPITI
    ============================================================ */
 (function () {
   // name, short label, altitude (m), lat, lon, kind
@@ -27,57 +25,7 @@
     { n: "Manali",       s: "MNL", a: 2050, lat: 32.24, lon: 77.19, k: "end"    }
   ];
 
-  // ride-order spine used for the route line
-  const ORDER = ["Chandigarh","Shimla","Narkanda","Rampur","Sangla","Chitkul",
-                 "Kalpa","Nako","Tabo","Dhankar","Kaza","Kibber","Komic","Kunzum La",
-                 "Chandratal","Batal","Manali"];
-
-  function bounds(list) {
-    let mnx = 1e9, mny = 1e9, mxx = -1e9, mxy = -1e9;
-    list.forEach(p => {
-      mnx = Math.min(mnx, p.lon); mxx = Math.max(mxx, p.lon);
-      mny = Math.min(mny, p.lat); mxy = Math.max(mxy, p.lat);
-    });
-    return { mnx, mny, mxx, mxy };
-  }
-
-  // project lon/lat into a w×h box with padding; y inverted (north=up)
-  function makeProjector(w, h, pad, list) {
-    const b = bounds(list || WP);
-    const sx = (w - 2 * pad) / (b.mxx - b.mnx);
-    const sy = (h - 2 * pad) / (b.mxy - b.mny);
-    const s = Math.min(sx, sy);
-    const ox = pad + ((w - 2 * pad) - s * (b.mxx - b.mnx)) / 2;
-    const oy = pad + ((h - 2 * pad) - s * (b.mxy - b.mny)) / 2;
-    return (lat, lon) => ({
-      x: ox + (lon - b.mnx) * s,
-      y: (h - oy) - (lat - b.mny) * s
-    });
-  }
-
   function byName(n) { return WP.find(p => p.n === n); }
-
-  // returns {points:[{x,y,wp}], d} for the route spine
-  function route(w, h, pad, opts) {
-    opts = opts || {};
-    const proj = makeProjector(w, h, pad, WP);
-    const pts = ORDER.map(n => {
-      const wp = byName(n);
-      const p = proj(wp.lat, wp.lon);
-      return { x: p.x, y: p.y, wp };
-    });
-    const d = smooth(pts, opts.tension == null ? 0.18 : opts.tension);
-    return { points: pts, d, proj };
-  }
-
-  // all waypoints projected (for dense label maps)
-  function allPoints(w, h, pad) {
-    const proj = makeProjector(w, h, pad, WP);
-    return WP.map(wp => {
-      const p = proj(wp.lat, wp.lon);
-      return { x: p.x, y: p.y, wp };
-    });
-  }
 
   // catmull-rom -> bezier smoothing
   function smooth(pts, t) {
@@ -95,44 +43,6 @@
       d += ` C ${c1x.toFixed(2)} ${c1y.toFixed(2)}, ${c2x.toFixed(2)} ${c2y.toFixed(2)}, ${p2.x.toFixed(2)} ${p2.y.toFixed(2)}`;
     }
     return d;
-  }
-
-  /* ---------- procedural topographic contours ---------- */
-  // deterministic pseudo-noise
-  function noise(a, seed) {
-    return (
-      Math.sin(a * 3 + seed) * 0.55 +
-      Math.sin(a * 5 + seed * 1.7) * 0.28 +
-      Math.sin(a * 9 + seed * 0.6) * 0.13 +
-      Math.sin(a * 2 + seed * 2.3) * 0.20
-    );
-  }
-
-  // one organic closed ring around (cx,cy) of base radius r
-  function ring(cx, cy, r, seed, amp, squash) {
-    const N = 90, pts = [];
-    for (let i = 0; i <= N; i++) {
-      const a = (i / N) * Math.PI * 2;
-      const rr = r * (1 + noise(a, seed) * amp);
-      pts.push({ x: cx + Math.cos(a) * rr, y: cy + Math.sin(a) * rr * (squash || 1) });
-    }
-    return smooth(pts, 0.16) + " Z";
-  }
-
-  // nested contour set around a center: returns array of path strings (outer->inner)
-  function contourField(cx, cy, opts) {
-    opts = opts || {};
-    const count = opts.count || 9;
-    const step = opts.step || 13;
-    const r0 = opts.r0 || 10;
-    const seed = opts.seed || 1;
-    const amp = opts.amp == null ? 0.12 : opts.amp;
-    const squash = opts.squash || 1;
-    const out = [];
-    for (let i = 0; i < count; i++) {
-      out.push(ring(cx, cy, r0 + i * step, seed + i * 0.4, amp, squash));
-    }
-    return out;
   }
 
   /* ---------- stylized SPITI CIRCUIT MAP (from the reference) ---------- */
@@ -254,7 +164,6 @@
   }
 
   window.SPITI = {
-    WP, ORDER, byName, makeProjector, route, allPoints, smooth,
-    ring, contourField, CIRCUIT, cNode, drawCircuit, glyph
+    WP, byName, smooth, CIRCUIT, cNode, drawCircuit, glyph
   };
 })();

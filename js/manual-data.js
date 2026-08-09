@@ -118,33 +118,7 @@ window.MANUAL = {
 
   /* ---- DELIVERABLE TABLES ---- */
 
-  // 1 — fuel strategy table
-  fuelTable: [
-    ["Day 1","Chandigarh","FILL ALL + buy 4×5L cans","—","Dense city pumps","Stage for the trip"],
-    ["Day 2","Theog / Shimla","Top up","~115 km","Frequent","None"],
-    ["Day 3","Rampur → Karcham","Brim at Rampur","~130 km","Good","Chitkul has none (~70 km r/t)"],
-    ["Day 4","Reckong Peo (Powari)","BRIM + ALL CANS","~120 km","Last reliable pump","Critical staging fill"],
-    ["Day 5–6","None (Nako, Tabo)","Run on Peo fill + cans","~165 km","NONE","Ration small tanks"],
-    ["Day 7","KAZA","BRIM EVERY TANK + ALL CANS","~200 km from Peo","Only pump in Spiti","Most important fill"],
-    ["Day 8–9","Kaza (loops)","Re-top after loops","~80–110 km","Kaza only","Refill cans for Kunzum"],
-    ["Day 10–11","None → Manali","Reserves + cans","~190 km Kaza→Manali","NONE via Kunzum","Cans are the lifeline"],
-    ["Day 13","Kullu/Mandi/Bilaspur","Top up freely","~310 km","Frequent NH","None"]
-  ],
-
-  // 2 — accommodation table
-  accomTable: [
-    ["Day 1 / 13 / 14","Chandigarh","Budget hotel ₹1,200","Mid hotel ₹3,000","Depot-side, secure parking","₹1,200–4,500"],
-    ["Day 2","Narkanda","Orchard homestay ₹900","Hotel Hatu ₹2,500","Courtyard parking","₹900–3,500"],
-    ["Day 3","Sangla / Chitkul","Chitkul homestay ₹1,200","Banjara camp ₹4,000","Riverside camp, open parking","₹1,200–5,000"],
-    ["Day 4","Kalpa","Homestay ₹1,200","View hotel ₹3,000","Courtyard parking","₹1,000–4,000"],
-    ["Day 5","Nako","Homestay ₹1,000","Guesthouse ₹2,200","Park at homestay","₹800–2,800"],
-    ["Day 6","Tabo","Monastery GH ₹800","Homestay/hotel ₹2,000","Large open parking","₹600–2,500"],
-    ["Day 7–9","Kaza (3 nights)","Homestay ₹1,200","Deyzor / Sakya ₹3,500","Secure, mechanic in town","₹800–4,500"],
-    ["Day 10","Chandratal","Dorm tent ₹1,500","Camp w/ meals ₹3,500","Open gravel lot","₹1,200–4,000"],
-    ["Day 11–12","Manali (2 nights)","Old Manali GH ₹1,500","Hotel ₹4,000","Secure, service nearby","₹1,000–5,000"]
-  ],
-
-  // 3 — luggage distribution (detailed per rider)
+  // luggage distribution (detailed per rider)
   luggage: [
     { who:"Rajas", bike:"Dominar 400 (good highway range, big frame)", role:"LEAD",
       items:["Toolbox #1 (primary)","Chain lube + cleaning kit","Cookset + mugs + gas canister","Oxygen can ×1","5 L fuel can","Group dry rations","Dominar spares & tool roll"],
@@ -162,101 +136,8 @@ window.MANUAL = {
       items:["Toolbox #2 + Tyre inflator #1","DSLR #1 + DRONE (padded)","Duct tape · zip ties · M-seal · wire","Duke spares + fuses/bulbs","Lead navigation (offline maps)","No fuel can — keep light for sweep duty"],
       why:"Sweep rider keeps a toolbox + inflator + drone; stays light to assist stragglers" }
   ],
-  luggageGoals:[
-    "<b>Even weight:</b> fuel cans on 4 bikes (not the sweep); kitchen on the big Dominar.",
-    "<b>Redundancy:</b> 2 toolboxes (lead+sweep), 2 inflators, first-aid & med-box on separate bikes, 2 oxygen cans.",
-    "<b>Easy access:</b> inflator, puncture kit, first-aid & snacks in top-boxes/tank-bags, not buried.",
-    "<b>Camera protection:</b> DSLRs on the plush Himalayan & agile Duke, padded, away from fuel cans."
-  ],
 
-  // visual matrix: rows = item, cols = [Rajas, Yogesh, Pranav, Praful, Shoaib]; ●=primary ○=backup/share
-  luggageMatrix: {
-    riders: ["Rajas", "Yogesh", "Pranav", "Praful", "Shoaib"],
-    rows: [
-      ["Mechanic toolbox",      ["●","","","","●"]],
-      ["Tyre inflator",         ["","","","●","●"]],
-      ["Puncture / plug kit",   ["","●","○","",""]],
-      ["Spare tubes",           ["","","●","",""]],
-      ["First-aid / trauma kit",["","●","","",""]],
-      ["Group medicine box",    ["","","","●",""]],
-      ["Oxygen cans",           ["○","●","●","",""]],
-      ["Spare fuel can (5 L)",  ["●","●","●","●",""]],
-      ["Tow rope + straps",     ["","","●","",""]],
-      ["Chain lube + clean",    ["●","","","",""]],
-      ["Cookset + stove + gas", ["●","●","","",""]],
-      ["Moka pot + coffee",     ["","","●","",""]],
-      ["DSLR camera",           ["","","","●","●"]],
-      ["Drone",                 ["","","","","●"]],
-      ["Power bank ×2 + filter",["","","","●",""]],
-      ["Charger + extn board",  ["","●","","",""]],
-      ["Navigation (offline)",  ["","","","","●"]],
-      ["Repair sundries*",      ["","","","","●"]]
-    ],
-    note: "● primary holder · ○ backup / shared second unit. *Duct tape, zip ties, M-seal, wire, fuses & bulbs.",
-    roles: ["LEAD", "Medic-1", "Brew-1", "Cam/Med-2", "SWEEP/Nav"]
-  },
-
-  // 4 — budget per rider
-  budget: [
-    ["Bike shipping (Pune⇄CHD, Safexpress)","Round trip per bike","₹7,000 – 11,000"],
-    ["Flights/train to & from Chandigarh","Return","₹6,000 – 12,000"],
-    ["Fuel (own bike, ~1,350 km + loops)","@ ₹100/L, 25–30 km/L","₹5,000 – 6,500"],
-    ["Accommodation (14 nights, shared twin)","₹1,000–2,500/night pp","₹14,000 – 22,000"],
-    ["Food & cafés (15 days)","₹600–900/day","₹9,000 – 13,500"],
-    ["Spare fuel cans + oxygen + sundries","Shared, per head","₹1,500 – 2,500"],
-    ["Bike service (pre + Manali) & spares","Per head share","₹2,000 – 4,000"],
-    ["Permits / entry / parking / misc","Buffer","₹1,500 – 3,000"],
-    ["Contingency (medical/recovery/weather)","Recommended","₹5,000"]
-  ],
-  budgetNote:"Indicative per-rider total: <b>₹51,000 – 79,500</b> (excl. personal gear & shopping). Carry ample cash — ATMs only at Reckong Peo & Kaza, often empty.",
-
-  // 5 — motorcycle prep (per category, applies to all 5 bikes)
-  bikePrep: [
-    ["Tyres","New or >60% tread, correct pressure, check for cuts. Carry pressure gauge.","All"],
-    ["Tubes / Tubeless","ADV/Duke spoke-tubeless → tube + tubeless plugs. Carry 2 spare tubes (sizes split Pranav).","All"],
-    ["Brake pads","Fresh front & rear; carry one spare set (Himalayan/ADV).","All"],
-    ["Clutch","Adjust free-play; carry spare clutch cable (cable bikes) + lever.","All"],
-    ["Chain & sprocket","<50% wear, correct slack, clean + lube. Carry lube (Rajas).","All"],
-    ["Engine oil","Fresh oil before trip; carry 500 ml–1 L top-up.","All"],
-    ["Coolant","Top to mark (liquid-cooled KTMs, Himalayan, Duke). Check hoses.","KTM/RE"],
-    ["Air filter","Cleaned/new — dust is brutal in the cold desert.","All"],
-    ["Electricals","Test charging, horn, all switches; weatherproof connectors.","All"],
-    ["Spare fuses","Full set per bike (Shoaib carries extras).","All"],
-    ["Spare bulbs","Head/tail/indicator (or know your LED failure mode).","All"],
-    ["Cables","Spare clutch & throttle/accelerator cables where applicable.","All"]
-  ],
-
-  // 6 — emergency response plan
-  emergency: [
-    ["Convoy protocol","Rajas leads, Shoaib sweeps. No one rides ahead of lead or behind sweep. Regroup at every junction, fuel stop & 45-min mark. Hand signals agreed each morning."],
-    ["Breakdown","Sweep (Shoaib, toolbox+inflator) reaches the stopped rider; lead halts convoy at safe spot. Fix or tow (Pranav's rope). If unfixable, nearest town mechanic — Kaza or Manali."],
-    ["Medical / AMS","Oximeter check; if SpO₂ <80% with headache/vomiting/breathlessness → oxygen + descend immediately, do not sleep higher. Dexamethasone/Nifedipine only per doctor's brief. Evacuate to Kaza CHC or Manali hospital."],
-    ["Accident","Secure scene, first-aid (Yogesh kit), don't remove helmet unless airway-critical. Call 112. Note location (offline map pin) for rescue."],
-    ["Comms blackout","BSNL only, dead at Nako/Kunzum/Chandratal/Batal. Share daily plan with family; agree check-in points (Kalpa, Kaza, Manali). Carry a power bank for the nav phone."],
-    ["Weather / road closure","Check road status daily (dhaba-walas, locals). If Kunzum closed by snow, use buffer days; worst case retrace Kinnaur or wait it out in Kaza."]
-  ],
-  contacts: [
-    ["Emergency (all-India)","112"],
-    ["Police","100"],
-    ["Ambulance","108"],
-    ["District Hospital, Reckong Peo","Kinnaur — first major hospital"],
-    ["CHC Kaza","Spiti — basic care, oxygen"],
-    ["Lady Willingdon / Mission Hospital, Manali","Post-trip serious care"],
-    ["Safexpress Chandigarh","Bike consignment (keep receipt + helpline)"]
-  ],
-
-  // 7 — risk assessment
-  risk: [
-    ["Highest-altitude sections","Komic 4,587 m, Kunzum La 4,551 m, Chandratal camp 4,300 m, Kibber 4,270 m.","Acclimatize (Kinnaur-first), oximeter, descend on symptoms."],
-    ["Landslide-prone","Jeori–Karcham, Malling Nala (Pooh–Nako), Karcham–Sangla, monsoon-tail zones.","Cross fast, daylight only, don't stop under loose slopes."],
-    ["Water crossings","Batal–Gramphu (multiple), Pin valley after rain.","Cross before noon (lower melt); scout line; feet up, steady throttle."],
-    ["Network blackspots","Nako, Kunzum, Chandratal, Batal–Gramphu. BSNL patchy elsewhere.","Offline maps, share plan, check-in at towns."],
-    ["ATM availability","Only Reckong Peo & Kaza — often empty/offline.","Carry plenty of cash from Chandigarh/Shimla."],
-    ["Medical facilities","Reckong Peo (district hosp), Kaza (CHC), Manali. Sparse between.","Self-sufficient first-aid; know nearest bail-out."],
-    ["Weather (late Sep–early Oct)","Cold nights (sub-zero high camps), risk of early snow closing Kunzum, afternoon winds.","Buffer days (9 & 12), daily road checks, warm gear."]
-  ],
-
-  // 8 — daily route segmentation (for offline maps / GPX)
+  // daily route segmentation (for offline maps / GPX)
   segments: [
     ["01","Chandigarh (local)","—","Collect bikes, prep","City"],
     ["02","Chandigarh → Narkanda","~170 km","Shimla bypass–Kufri–Theog","Good NH"],
@@ -273,75 +154,5 @@ window.MANUAL = {
     ["13","Manali → Chandigarh","~310 km","Mandi–Bilaspur–Swarghat","Highway"],
     ["14","Chandigarh (local)","—","Ship bikes (Safexpress)","City"],
     ["15","Chandigarh → fly home","—","Trip ends","—"]
-  ],
-
-  // 9 — packing checklist, 11 categories
-  packing: {
-    "Riding Gear":["Helmet (+ spare visor / pinlock)","Riding jacket w/ CE armour","Riding pants / knee + elbow guards","Riding boots","Summer + winter gloves","Balaclava / neck gaiter","Riding goggles / clear+tinted visor"],
-    "Clothing":["Quick-dry tees ×4 (the trip tees!)","Trekking/cargo pants ×2","Underwear ×6 / socks ×5","Flip-flops / camp sandals","Casual fleece","Cap / sun hat","Quick-dry towel"],
-    "Cold Weather Gear":["Thermal base layers ×2 (top+bottom)","Down/puffer jacket","Fleece mid-layer","Woolen cap & warm socks ×3","Inner gloves","Hand/toe warmers (Chandratal)","Buff ×2"],
-    "Rain Gear":["Rain jacket + pants (over-suit)","Waterproof gloves / covers","Waterproof boot covers","Dry bags / rain cover for luggage","Ziplocks for electronics"],
-    "Electronics":["Phone + offline maps","Power bank ×2","Multi-charger + extension board","DSLR ×2 + lenses + batteries","Drone + extra props + ND filters","Action cam + mounts","Headlamp + spare batteries","Universal + bike USB charger"],
-    "Bike Spares":["Spare tubes ×2 (both sizes)","Clutch + throttle cables","Brake pads (front/rear set)","Spare levers (clutch/brake)","Fuses + bulbs assortment","Master link + chain lube","Spare bolts / nuts / washers","Air filter (cleaned spare)"],
-    "Repair Tools":["Toolbox ×2 (full)","Tyre inflator ×2","Puncture / tubeless plug kit","Tyre levers + bead lube","Multitool + allen/torx set","Duct tape · zip ties · M-seal · wire","Tow rope + tie-downs","Cable ties + electrical tape"],
-    "Camping / Outdoor":["Sleeping-bag liner (camps provide bags)","Inflatable pillow","Headtorch + lantern","Camp stove + gas canisters","Cookset + mugs + spork","Water filter / purification tabs","Trash bag (pack it out)","Sit-mat / small tarp"],
-    "Coffee Kit (Moka Pot)":["Moka pot (3–6 cup)","Ground coffee (pre-measured tins)","Hand grinder (optional, fresh beans)","Camp stove + gas (shared)","Insulated mugs ×2–3","Milk powder / sugar sachets","Small cleaning cloth","Lighter + matches (backup)"],
-    "Documents":["Driving licence (orig + 3 copies)","RC, Insurance, PUC — each bike","Govt photo ID + copies","Safexpress consignment receipts","Passport-size photos ×4","Trip & medical insurance","Emergency-contact + blood-group card","Cash + backup card"],
-    "Emergency Items":["Oxygen cans ×4","Pulse oximeter","Full first-aid + medicine box","Emergency blanket (foil) ×2","Whistle + signal mirror","Spare keys (each bike, held by another)","Fire starter / waterproof matches","Energy bars / dry fruit reserve"]
-  },
-
-  // 10 — medicine with dosage & when-to-use
-  meds: {
-    "AMS / Altitude":[
-      ["Acetazolamide (Diamox)","250 mg twice daily, start 24 h before going above ~3,000 m (Kalpa/Nako), continue 2–3 days","Prevent & treat AMS. Rx — expect tingling/extra urination.","Rx"],
-      ["Dexamethasone","4 mg every 6 h (emergency only)","Severe AMS / HACE while arranging descent","Rx"],
-      ["Nifedipine","20 mg slow-release every 12 h","HAPE (breathlessness at rest, frothy cough) + descend","Rx"],
-      ["Portable oxygen","As needed","Symptomatic relief; not a substitute for descent","OTC"]
-    ],
-    "Fever":[
-      ["Paracetamol (Crocin/Dolo 650)","650 mg every 6–8 h, max 3 g/day","Fever, headache, body ache","OTC"]
-    ],
-    "Cold & Cough":[
-      ["Cetirizine / Levocetirizine","10 mg / 5 mg once at night","Runny nose, allergic cold","OTC"],
-      ["Strepsils / lozenges","As needed","Sore/dry throat (common at altitude)","OTC"],
-      ["Steam / decongestant (Otrivin)","2 sprays, max 3–5 days","Blocked nose — avoid overuse","OTC"]
-    ],
-    "Stomach Issues":[
-      ["Pantoprazole","40 mg before breakfast","Acidity / gastritis from oily dhaba food","OTC"],
-      ["Antacid (Digene/Gelusil)","As needed after meals","Quick acidity relief","OTC"],
-      ["Domperidone/Ondansetron","10 mg / 4 mg as needed","Nausea & vomiting (also motion sickness)","OTC/Rx"]
-    ],
-    "Diarrhoea":[
-      ["ORS / Electral","1 sachet per loose stool in clean water","Rehydration — the priority","OTC"],
-      ["Loperamide (Imodium)","2 mg after each loose stool, max 8/day","Slows diarrhoea (not if high fever/blood)","OTC"],
-      ["Racecadotril","100 mg three times daily","Acute watery diarrhoea","OTC"]
-    ],
-    "Food Poisoning":[
-      ["Norfloxacin+Tinidazole (Norflox-TZ)","1 tab twice daily ×3–5 days","Bacterial gut infection w/ fever/cramps","Rx"],
-      ["Ondansetron","4 mg as needed","Control vomiting to keep fluids down","Rx"]
-    ],
-    "Pain Relief":[
-      ["Ibuprofen","400 mg every 8 h with food (sparingly at altitude)","Muscle/joint pain, also helps high-altitude headache","OTC"],
-      ["Diclofenac gel (Volini/Moov)","Apply to sore area 2–3×/day","Topical for back/wrist/knee strain","OTC"],
-      ["Combiflam","1 tab as needed","Strong pain + inflammation","OTC"]
-    ],
-    "Allergies":[
-      ["Cetirizine","10 mg at night","Skin/dust/food allergy, itching","OTC"],
-      ["Hydrocortisone cream","Thin layer 2×/day","Local allergic skin reaction","OTC"],
-      ["Adrenaline auto-injector","Per doctor","If anyone has known severe allergy — carry & brief crew","Rx"]
-    ],
-    "Wound Care":[
-      ["Antiseptic (Betadine/Savlon)","Clean wound before dressing","Cuts, road rash","OTC"],
-      ["Soframycin / antibiotic cream","Thin layer + dressing","Prevent wound infection","OTC"],
-      ["Burnol / silver-sulfadiazine","Apply to burn","Exhaust/stove burns","OTC"],
-      ["Sterile gauze, crepe, tape, band-aids","As needed","Dressings & support","OTC"]
-    ],
-    "Emergency Medical":[
-      ["Pulse oximeter","Check SpO₂ AM/PM at altitude","<80% + symptoms = oxygen + descend","Device"],
-      ["Thermometer","—","Track fever","Device"],
-      ["Scissors, tweezers, gloves, safety pins","—","Field first-aid","Device"],
-      ["Emergency foil blanket","Wrap casualty","Hypothermia / shock","Device"],
-      ["Personal Rx meds (labelled)","Per prescription","Each rider's own conditions","Rx"]
-    ]
-  }
+  ]
 };
